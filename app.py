@@ -163,6 +163,15 @@ st.markdown("</div>", unsafe_allow_html=True)
 # ---------------- Hidden Gems ----------------
 st.markdown("<div class='fade-in'>", unsafe_allow_html=True)
 st.subheader("💎 Hidden Gems")
-hidden = filtered_ml[(filtered_ml['rating'] < filtered_ml['predicted_rating']) & (filtered_ml['rating'] >= 2.5)]
-st.dataframe(hidden.sort_values(by='predicted_rating', ascending=False)[['name','rating','predicted_rating','price']].head(10))
+filtered_ml['predicted_rating'] = filtered_ml['predicted_rating'].clip(0, 5)
+hidden = filtered_ml[
+    (filtered_ml['predicted_rating'] - filtered_ml['rating'] >= 0.5)
+    & (filtered_ml['rating'] >= 2.5)
+]
+st.dataframe(
+    hidden.sort_values(by='predicted_rating', ascending=False)
+    [['name','rating','predicted_rating','price']]
+    .head(10)
+    .reset_index(drop=True)
+)
 st.markdown("</div>", unsafe_allow_html=True)
