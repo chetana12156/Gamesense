@@ -1,4 +1,4 @@
-#  Gamesense — Smart Game Recommendation System
+# 🎮 Gamesense - Smart Game Recommendation System
 
 ##  Overview
 
